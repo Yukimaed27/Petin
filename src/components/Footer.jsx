@@ -1,11 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
 function Footer() {
   const navigate = useNavigate();
 
   return (
-    <footer className="bg-gray-900 text-white mt-20">
+    <footer className="bg-gray-900 text-white mt-20 shadow-inner shadow-gray-200">
       {/* CONTENEDOR PRINCIPAL - Fondo oscuro con padding generoso para separación visual */}
       <div className="max-w-6xl mx-auto px-6 py-16">
         
@@ -74,31 +78,31 @@ function Footer() {
 
           {/* COLUMNA 3: REDES SOCIALES Y CONTACTO - Mantiene la presencia en redes sociales */}
           <div>
-            <h4 className="font-bold text-lg mb-6">Síguenos</h4>
+            <h4 className="font-bold text-lg mb-4">Síguenos</h4>
             {/* Contenedor flex para iconos - Distribuye los botones de redes horizontalmente */}
             <div className="flex gap-4 mb-6">
               {/* Botón Facebook - Icono interactivo con efecto hover */}
               <button className="bg-gray-800 hover:bg-blue-600 p-3 rounded-full transition duration-300">
-                <img 
-                  src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/facebook.svg" 
+                <FontAwesomeIcon
+                  icon={faFacebook}
                   alt="Facebook"
-                  className="w-5 h-5 filter brightness-0 invert"
+                  className="w-6 h-5 filter brightness-0 invert"
                 />
               </button>
               {/* Botón X (Twitter) - Icono interactivo con efecto hover */}
               <button className="bg-gray-800 hover:bg-black p-3 rounded-full transition duration-300">
-                <img 
-                  src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/x-twitter.svg" 
+                <FontAwesomeIcon
+                  icon={faXTwitter}
                   alt="X"
-                  className="w-5 h-5 filter brightness-0 invert"
+                  className="w-6 h-5 filter brightness-0 invert"
                 />
               </button>
               {/* Botón Instagram - Icono interactivo con efecto hover */}
               <button className="bg-gray-800 hover:bg-pink-600 p-3 rounded-full transition duration-300">
-                <img 
-                  src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/instagram.svg" 
+                <FontAwesomeIcon 
+                  icon={faInstagram}
                   alt="Instagram"
-                  className="w-5 h-5 filter brightness-0 invert"
+                  className="w-6 h-5 filter brightness-0 invert"
                 />
               </button>
             </div>
@@ -136,4 +140,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default React.memo(Footer);

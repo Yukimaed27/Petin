@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { X, Heart, PawPrint } from "lucide-react";
 
@@ -94,7 +95,8 @@ function SwipeCard({ pet, onSwipe }) {
           onClick={() => onSwipe("nope", pet)}
           className="w-14 h-14 rounded-full border border-gray-200 bg-white shadow-sm flex items-center justify-center hover:scale-110 hover:shadow-md transition-all duration-300"
         >
-          <X className="text-red-500" />
+          <X className="text-red-500"
+          />
         </button>
 
         <button
@@ -115,4 +117,4 @@ function SwipeCard({ pet, onSwipe }) {
   );
 }
 
-export default SwipeCard;
+export default React.memo(SwipeCard);

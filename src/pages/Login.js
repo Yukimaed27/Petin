@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faApple } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -66,17 +69,17 @@ function Login({ onLogin }) {
 
           {/* BOTONES DE REDES SOCIALES - Mejorados con nuevos estilos */}
           <button className="w-full border-2 border-gray-300 hover:border-purple-400 py-3 rounded-full mb-3 font-medium hover:bg-purple-50 transition duration-300">
-            <img 
-              src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/google.svg" 
+            <FontAwesomeIcon 
+              icon={faGoogle}
               alt="Google"
-              className="w-5 h-5 inline mr-2 filter brightness-0"
+              className="w-4 h-4 inline mr-2 filter brightness-0"
             />
             Continuar con Google
           </button>
 
           <button className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-full mb-6 font-medium transition duration-300">
-            <img 
-              src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/apple.svg" 
+            <FontAwesomeIcon 
+              icon={faApple}
               alt="Apple"
               className="w-5 h-5 inline mr-2 filter brightness-0 invert"
             />
