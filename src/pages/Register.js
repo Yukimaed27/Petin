@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 function Register() {
   const navigate = useNavigate();
@@ -16,20 +17,32 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Cuenta creada ✔");
+    alert("¡Cuenta creada exitosamente! ✔");
     navigate("/login");
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50 font-sans">
-      <div className="hidden lg:flex lg:w-1/2 relative bg-purple-900">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50">
+      {/* BOTÓN VOLVER A HOME - Acceso rápido a la landing page */}
+      <button
+        onClick={() => navigate("/")}
+        className="absolute top-6 left-6 bg-white text-purple-900 p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-10 flex items-center gap-2"
+      >
+        <ArrowLeft size={20} />
+        <span className="hidden sm:inline font-medium">Volver</span>
+      </button>
+
+      <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-br from-purple-900 to-indigo-900">
         <img
           src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80"
           alt="Mascotas"
-          className="object-cover w-full h-full opacity-90"
+          className="object-cover w-full h-full opacity-80"
         />
 
-        <div className="absolute bottom-10 left-10 right-10 bg-white/20 backdrop-blur-md p-6 rounded-2xl text-white border border-white/10">
+        {/* OVERLAY OSCURO - Mejora legibilidad del texto */}
+        <div className="absolute inset-0 bg-black/30"></div>
+
+        <div className="absolute bottom-10 left-10 right-10 bg-white/20 backdrop-blur-md p-6 rounded-2xl text-white border border-white/30">
           <p className="text-lg font-medium">
             “Encontrar amigos para tu mascota nunca fue tan fácil”
           </p>
@@ -39,25 +52,38 @@ function Register() {
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-10 py-10">
         <div className="w-full max-w-md">
 
-          <div className="flex items-center gap-2 text-[#3b0764] font-bold text-2xl mb-8">
-            <div className="bg-[#3b0764] text-white p-2 rounded-xl text-sm">
-              🐾
-            </div>
+          {/* LOGO CLICKEABLE - Navegable a Home */}
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2 text-purple-900 font-bold text-2xl mb-8 hover:text-purple-700 transition duration-300"
+          >
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-2 rounded-xl">🐾</div>
             Pettin
-          </div>
+          </button>
 
-          <h2 className="text-3xl font-bold text-gray-900">Crear cuenta</h2>
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Crear cuenta</h2>
 
-          <p className="text-gray-500 mb-6">
-            Únete y encuentra nuevos amigos para tu mascota
+          <p className="text-gray-600 mb-8 text-base">
+            Únete a nuestra comunidad y encuentra amigos para tu mascota
           </p>
 
 
-          <button className="w-full border p-3 rounded-full mb-3 hover:bg-gray-100 transition">
+          {/* BOTONES DE REDES SOCIALES - Mejorados con nuevos estilos */}
+          <button className="w-full border-2 border-gray-300 hover:border-purple-400 py-3 rounded-full mb-3 font-medium hover:bg-purple-50 transition duration-300">
+            <img 
+              src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/google.svg" 
+              alt="Google"
+              className="w-5 h-5 inline mr-2 filter brightness-0"
+            />
             Registrarse con Google
           </button>
 
-          <button className="w-full bg-black text-white p-3 rounded-full mb-6 hover:bg-gray-800 transition">
+          <button className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-full mb-6 font-medium transition duration-300">
+            <img 
+              src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/brands/apple.svg" 
+              alt="Apple"
+              className="w-5 h-5 inline mr-2 filter brightness-0 invert"
+            />
             Registrarse con Apple
           </button>
 
@@ -74,8 +100,9 @@ function Register() {
               name="name"
               type="text"
               placeholder="Nombre completo"
+              value={form.name}
               onChange={handleChange}
-              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-purple-300 outline-none"
+              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
               required
             />
 
@@ -83,36 +110,50 @@ function Register() {
               name="email"
               type="email"
               placeholder="Correo electrónico"
+              value={form.email}
               onChange={handleChange}
-              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-purple-300 outline-none"
+              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
               required
             />
 
             <input
               name="password"
               type="password"
-              placeholder="Contraseña"
+              placeholder="Contraseña (mín. 6 caracteres)"
+              value={form.password}
               onChange={handleChange}
-              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-purple-300 outline-none"
+              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
               required
+              minLength={6}
             />
 
             <button
               type="submit"
-              className="w-full bg-[#3b0764] text-white p-3 rounded-full font-semibold hover:bg-[#2e054e] transition"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white p-3 rounded-full font-bold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300 mt-6"
             >
               Crear cuenta
             </button>
           </form>
 
   
+          {/* LOGIN */}
           <p className="text-center text-sm text-gray-600 mt-6">
             ¿Ya tienes cuenta?{" "}
             <span
               onClick={() => navigate("/login")}
-              className="text-[#3b0764] font-bold cursor-pointer hover:underline"
+              className="text-purple-900 font-bold cursor-pointer hover:text-purple-700 transition"
             >
               Inicia sesión
+            </span>
+          </p>
+
+          {/* LINK A HOME */}
+          <p className="text-center text-xs text-gray-500 mt-4">
+            <span
+              className="text-purple-600 font-semibold cursor-pointer hover:text-purple-800 transition"
+              onClick={() => navigate("/")}
+            >
+              ← Volver a la página de inicio
             </span>
           </p>
         </div>
