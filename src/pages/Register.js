@@ -22,8 +22,6 @@ function Register() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50 font-sans">
-
-      {/* IZQUIERDA (IMAGEN) */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-purple-900">
         <img
           src="https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80"
@@ -38,12 +36,9 @@ function Register() {
         </div>
       </div>
 
-      {/* DERECHA */}
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-10 py-10">
-
         <div className="w-full max-w-md">
 
-          {/* LOGO */}
           <div className="flex items-center gap-2 text-[#3b0764] font-bold text-2xl mb-8">
             <div className="bg-[#3b0764] text-white p-2 rounded-xl text-sm">
               🐾
@@ -51,15 +46,13 @@ function Register() {
             Pettin
           </div>
 
-          <h2 className="text-3xl font-bold text-gray-900">
-            Crear cuenta
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Crear cuenta</h2>
 
           <p className="text-gray-500 mb-6">
             Únete y encuentra nuevos amigos para tu mascota
           </p>
 
-          {/* BOTONES SOCIAL */}
+
           <button className="w-full border p-3 rounded-full mb-3 hover:bg-gray-100 transition">
             Registrarse con Google
           </button>
@@ -76,9 +69,7 @@ function Register() {
             <hr className="flex-1 border-gray-300" />
           </div>
 
-          {/* FORM */}
           <form onSubmit={handleSubmit} className="space-y-4">
-
             <input
               name="name"
               type="text"
@@ -112,10 +103,9 @@ function Register() {
             >
               Crear cuenta
             </button>
-
           </form>
 
-          {/* LOGIN */}
+  
           <p className="text-center text-sm text-gray-600 mt-6">
             ¿Ya tienes cuenta?{" "}
             <span
@@ -125,7 +115,6 @@ function Register() {
               Inicia sesión
             </span>
           </p>
-
         </div>
       </div>
     </div>
