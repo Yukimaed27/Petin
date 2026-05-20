@@ -11,6 +11,7 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
+import RegisterPet from "./pages/RegisterPet.js";
 
 function App() {
   const { auth, logout } = useAuth();
@@ -80,11 +81,16 @@ function App() {
             element={auth ? <Profile /> : <Navigate to="/login" replace />}
           />
 
+          {/* REGISTER PET */}
+          <Route
+            path="/register-pet"
+            element={auth ? <RegisterPet /> : <Navigate to="/login" replace />}
+          />
+
           {/* RUTA COMODÍN - Captura cualquier otra ruta y muestra página 404 personalizada */}
           <Route path="*" element={<NotFound />} />
 
           {/* RUTA dashboard- ADMIN */}
-
           <Route
             path="/dashboard"
             element={

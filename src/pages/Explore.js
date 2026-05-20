@@ -159,6 +159,8 @@ function Explore() {
             <Card key={pet.id} pet={pet} />
           ))}
         </div>
+
+        
       </div>
     </div>
   );
