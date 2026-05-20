@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import { useAuth } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -11,29 +12,14 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 
 function App() {
-  // ESTADO DEL TOKEN - Almacena la autenticación del usuario
-  // Se carga desde localStorage al inicializar la app
-  const [token, setToken] = useState(() => {
-    // Obtiene el token guardado en localStorage (si existe)
-    const savedToken = localStorage.getItem("pettin_auth_token");
-    return savedToken || null;
-  });
+const { token, logout } = useAuth();
 
-  // EFECTO DE SINCRONIZACIÓN - Guarda el token en localStorage cada vez que cambia
-  useEffect(() => {
-    if (token) {
-      // Si hay token, lo guarda en localStorage para persistencia
-      localStorage.setItem("pettin_auth_token", token);
-    } else {
-      // Si no hay token (logout), elimina del localStorage
-      localStorage.removeItem("pettin_auth_token");
-    }
-  }, [token]);
+
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* NAVBAR - Solo se muestra cuando el usuario está autenticado */}
-      {token && <Navbar onLogout={() => setToken(null)} />}
+     {token && <Navbar onLogout={logout} />}
 
       {/* CONTENEDOR DE RUTAS - Crece para llenar el espacio disponible */}
       <div className="flex-grow">
@@ -48,7 +34,7 @@ function App() {
               token ? (
                 <Navigate to="/explore" replace />
               ) : (
-                <Login onLogin={setToken} />
+                <Login/>
               )
             }
           />
@@ -62,7 +48,11 @@ function App() {
           {/* EXPLORE - Requiere autenticación */}
           <Route
             path="/explore"
-            element={token ? <Explore /> : <Navigate to="/login" replace />}
+            element={
+              <ProtectedRoute>
+                <Explore />
+              </ProtectedRoute>
+            }
           />
 
           {/* MATCH - Requiere autenticación, muestra matches del usuario */}

@@ -5,44 +5,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { login } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 /**
  * PÁGINA LOGIN
- * 
+ *
  * Componente de autenticación que valida credenciales.
  * Utiliza la función login del servicio de API.
  * Guarda el token en localStorage para persistencia.
- * 
+ *
  * Credenciales de prueba:
  * - Email: petin@gmail.com
  * - Password: 123
  */
-function Login({ onLogin }) {
+function Login() {
   const navigate = useNavigate();
 
   // ESTADO DE FORMULARIO
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   // ESTADO DE CARGA - Muestra spinner mientras se procesa login
   const [loading, setLoading] = useState(false);
-  
+
   // ESTADO DE ERROR - Almacena mensaje de error
   const [error, setError] = useState("");
 
+  //asegurar las autenticaciones
+  const { login: authLogin } = useAuth();
+
   /**
    * MANEJADOR DE ENVÍO - Valida y procesa el login
-   * 
+   *
    * Utiliza la función login del servicio API que:
    * - Valida credenciales
    * - Genera token único
    * - Maneja errores apropiadamente
-   * 
+   *
    * El token se guarda en localStorage automáticamente por App.js
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Limpia errores previos
     setError("");
 
@@ -55,14 +59,14 @@ function Login({ onLogin }) {
     try {
       // Inicia indicador de carga
       setLoading(true);
-      
+
       // Llama al servicio de login con email y contraseña
       const response = await login(email, password);
-      
+
       // Pasa el token al componente padre (App.js)
       // App.js se encarga de guardarlo en localStorage
-      onLogin(response.token);
-      
+      authLogin(response.token);
+
       // Navega a la página de exploración
       navigate("/explore");
     } catch (err) {
@@ -111,11 +115,15 @@ function Login({ onLogin }) {
             onClick={() => navigate("/")}
             className="flex items-center gap-2 text-purple-900 font-bold text-2xl mb-8 hover:text-purple-700 transition duration-300"
           >
-            <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-2 rounded-xl">🐾</div>
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-2 rounded-xl">
+              🐾
+            </div>
             Pettin
           </button>
 
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Bienvenido</h2>
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
+            Bienvenido
+          </h2>
 
           <p className="text-gray-600 mb-8 text-base">
             Inicia sesión para continuar explorando
@@ -123,7 +131,7 @@ function Login({ onLogin }) {
 
           {/* BOTONES DE REDES SOCIALES - Mejorados con nuevos estilos */}
           <button className="w-full border-2 border-gray-300 hover:border-purple-400 py-3 rounded-full mb-3 font-medium hover:bg-purple-50 transition duration-300">
-            <FontAwesomeIcon 
+            <FontAwesomeIcon
               icon={faGoogle}
               alt="Google"
               className="w-4 h-4 inline mr-2 filter brightness-0"
@@ -132,7 +140,7 @@ function Login({ onLogin }) {
           </button>
 
           <button className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-full mb-6 font-medium transition duration-300">
-            <FontAwesomeIcon 
+            <FontAwesomeIcon
               icon={faApple}
               alt="Apple"
               className="w-5 h-5 inline mr-2 filter brightness-0 invert"
@@ -227,7 +235,6 @@ function Login({ onLogin }) {
               ← Volver a la página de inicio
             </span>
           </p>
-
         </div>
       </div>
     </div>
