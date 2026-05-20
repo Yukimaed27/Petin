@@ -1,3 +1,41 @@
+# Pettin - Red Social de Mascotas
+
+Un frontend moderno, interactivo y totalmente responsive diseñado para conectar mascotas y dueños en una plataforma de estilo "matchmaking". Desarrollado con **React**, **Tailwind CSS** y **React Router DOM**, cumpliendo con altos estándares de arquitectura limpia y patrones de diseño modernos.
+
+---
+
+## Características Clave (Features)
+
+* **Autenticación Persistente:** Sistema de Login y Registro funcional con persistencia de sesión a través de `localStorage` y control de ciclo de vida con el hook `useEffect`.
+* **Rutas Protegidas:** Sistema de enrutamiento seguro que impide el acceso a las vistas de la aplicación (`/explore`, `/match`, `/profile`) si no existe una sesión activa.
+* **Consumo de Datos Dinámico:** Carga e interacción de perfiles de mascotas de forma reactiva simulando peticiones asíncronas (`Fetch API`) desde un origen de datos JSON externo (`pets.json`).
+* **Componentes Reutilizables:** Interfaz modularizada eficientemente en componentes independientes como `Navbar`, `Footer`, `Card` y `SwipeCard`.
+* **Diseño Excepcional y Responsive:** Estética moderna basada en gradientes pastel y morados, adaptada al 100% para dispositivos móviles, tablets y escritorio mediante los breakpoints nativos de `Tailwind CSS`.
+* **Manejo de Errores UX:** Página 404 personalizada integrada para capturar y redireccionar de forma amigable cualquier ruta inválida.
+
+---
+
+## Tecnologías Utilizadas
+
+* **Framework:** React (Vite / Create React App)
+* **Enrutamiento:** React Router DOM
+* **Estilos:** Tailwind CSS & Autoprefixer
+* **Iconos:** Lucide React
+* **Gestión de Estado:** Hooks nativos (`useState`, `useEffect`)
+
+---
+
+## 📁 Estructura del Proyecto Principal
+
+```text
+src/
+├── components/          # Componentes globales reutilizables (Navbar, Footer, Cards)
+├── pages/               # Vistas de la aplicación (Home, Login, Explore, Match, Profile, NotFound)
+├── services/            # Lógica de simulación de API y persistencia de datos
+└── index.css            # Configuración e inyección de directivas de Tailwind CSS
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

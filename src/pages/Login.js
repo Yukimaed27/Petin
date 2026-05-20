@@ -4,19 +4,73 @@ import { ArrowLeft } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faApple } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { login } from "../services/api";
 
+/**
+ * PÁGINA LOGIN
+ * 
+ * Componente de autenticación que valida credenciales.
+ * Utiliza la función login del servicio de API.
+ * Guarda el token en localStorage para persistencia.
+ * 
+ * Credenciales de prueba:
+ * - Email: petin@gmail.com
+ * - Password: 123
+ */
 function Login({ onLogin }) {
   const navigate = useNavigate();
 
+  // ESTADO DE FORMULARIO
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  // ESTADO DE CARGA - Muestra spinner mientras se procesa login
+  const [loading, setLoading] = useState(false);
+  
+  // ESTADO DE ERROR - Almacena mensaje de error
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  /**
+   * MANEJADOR DE ENVÍO - Valida y procesa el login
+   * 
+   * Utiliza la función login del servicio API que:
+   * - Valida credenciales
+   * - Genera token único
+   * - Maneja errores apropiadamente
+   * 
+   * El token se guarda en localStorage automáticamente por App.js
+   */
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Limpia errores previos
+    setError("");
 
-    if (email && password) {
-      onLogin("token-demo");
+    // Validación básica de campos
+    if (!email || !password) {
+      setError("Por favor completa todos los campos");
+      return;
+    }
+
+    try {
+      // Inicia indicador de carga
+      setLoading(true);
+      
+      // Llama al servicio de login con email y contraseña
+      const response = await login(email, password);
+      
+      // Pasa el token al componente padre (App.js)
+      // App.js se encarga de guardarlo en localStorage
+      onLogin(response.token);
+      
+      // Navega a la página de exploración
       navigate("/explore");
+    } catch (err) {
+      // Captura error y lo muestra al usuario
+      setError(err.message || "Error al iniciar sesión");
+    } finally {
+      // Finaliza indicador de carga
+      setLoading(false);
     }
   };
 
@@ -93,6 +147,13 @@ function Login({ onLogin }) {
             <hr className="flex-1 border-gray-300" />
           </div>
 
+          {/* MOSTRAR ERROR - Si existe error, lo muestra en rojo */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           {/* FORMULARIO */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -102,10 +163,11 @@ function Login({ onLogin }) {
 
               <input
                 type="email"
-                placeholder="correo@pettin.com"
+                placeholder="petin@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full mt-1 p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+                disabled={loading}
+                className="w-full mt-1 p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
                 required
               />
             </div>
@@ -120,16 +182,28 @@ function Login({ onLogin }) {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full mt-1 p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+                disabled={loading}
+                className="w-full mt-1 p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
                 required
               />
+              <p className="text-xs text-gray-500 mt-2">
+                Demo: petin@gmail.com / 123
+              </p>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-full font-bold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300 mt-6"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-full font-bold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300 mt-6 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
             >
-              Iniciar sesión
+              {loading ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  Iniciando sesión...
+                </>
+              ) : (
+                "Iniciar sesión"
+              )}
             </button>
           </form>
 
