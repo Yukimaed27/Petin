@@ -12,15 +12,98 @@ function Register() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
+  //estado de errores
+  const [errors, setErrors] = useState({});
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+
+    // validaciones dinámicas
+    let newErrors = { ...errors };
+
+    if (name === "name") {
+      if (value.trim().length < 3) {
+        newErrors.name = "Mínimo 3 caracteres";
+      } else {
+        delete newErrors.name;
+      }
+    }
+
+    if (name === "email") {
+      if (!value.includes("@")) {
+        newErrors.email = "Correo inválido";
+      } else {
+        delete newErrors.email;
+      }
+    }
+
+    if (name === "password") {
+      if (value.length < 6) {
+        newErrors.password = "Mínimo 6 caracteres";
+      } else {
+        delete newErrors.password;
+      }
+    }
+
+    if (name === "confirmPassword") {
+      if (value !== form.password) {
+        newErrors.confirmPassword = "Las contraseñas no coinciden";
+      } else {
+        delete newErrors.confirmPassword;
+      }
+    }
+
+    setErrors(newErrors);
+  };
+
+  //validaciones
+  const validate = () => {
+    let newErrors = {};
+
+    // nombre
+    if (form.name.trim().length < 3) {
+      newErrors.name = "El nombre debe tener mínimo 3 caracteres";
+    }
+
+    // email
+    if (!form.email.includes("@")) {
+      newErrors.email = "Correo inválido";
+    }
+
+    // password
+    if (form.password.length < 6) {
+      newErrors.password = "La contraseña debe tener mínimo 6 caracteres";
+    }
+
+    // confirmar contraseña
+    if (form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // ejecutar validaciones
+    if (!validate()) return;
+
+    // guardar usuario
+    localStorage.setItem("pettin_user", JSON.stringify(form));
+
     alert("¡Cuenta creada exitosamente! ✔");
+
     navigate("/login");
   };
 
@@ -54,26 +137,28 @@ function Register() {
 
       <div className="w-full lg:w-1/2 flex items-center justify-center px-6 sm:px-10 py-10">
         <div className="w-full max-w-md">
-
           {/* LOGO CLICKEABLE - Navegable a Home */}
           <button
             onClick={() => navigate("/")}
             className="flex items-center gap-2 text-purple-900 font-bold text-2xl mb-8 hover:text-purple-700 transition duration-300"
           >
-            <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-2 rounded-xl">🐾</div>
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 text-white p-2 rounded-xl">
+              🐾
+            </div>
             Pettin
           </button>
 
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Crear cuenta</h2>
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">
+            Crear cuenta
+          </h2>
 
           <p className="text-gray-600 mb-8 text-base">
             Únete a nuestra comunidad y encuentra amigos para tu mascota
           </p>
 
-
           {/* BOTONES DE REDES SOCIALES - Mejorados con nuevos estilos */}
           <button className="w-full border-2 border-gray-300 hover:border-purple-400 py-3 rounded-full mb-3 font-medium hover:bg-purple-50 transition duration-300">
-            <FontAwesomeIcon 
+            <FontAwesomeIcon
               icon={faGoogle}
               alt="Google"
               className="w-4 h-4 inline mr-2 filter brightness-0"
@@ -82,7 +167,7 @@ function Register() {
           </button>
 
           <button className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-full mb-6 font-medium transition duration-300">
-            <FontAwesomeIcon 
+            <FontAwesomeIcon
               icon={faApple}
               alt="Apple"
               className="w-5 h-5 inline mr-2 filter brightness-0 invert"
@@ -109,6 +194,10 @@ function Register() {
               required
             />
 
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
+
             <input
               name="email"
               type="email"
@@ -118,6 +207,10 @@ function Register() {
               className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
               required
             />
+
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
 
             <input
               name="password"
@@ -129,6 +222,25 @@ function Register() {
               required
               minLength={6}
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+
+            <input
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirmar contraseña"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-500"
+              required
+            />
+
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.confirmPassword}
+              </p>
+            )}
 
             <button
               type="submit"
@@ -138,7 +250,6 @@ function Register() {
             </button>
           </form>
 
-  
           {/* LOGIN */}
           <p className="text-center text-sm text-gray-600 mt-6">
             ¿Ya tienes cuenta?{" "}

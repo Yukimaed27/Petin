@@ -10,16 +10,15 @@ import Match from "./pages/Match";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-const { token, logout } = useAuth();
-
-
+  const { auth, logout } = useAuth();
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* NAVBAR - Solo se muestra cuando el usuario está autenticado */}
-     {token && <Navbar onLogout={logout} />}
+      {auth && <Navbar onLogout={logout} />}
 
       {/* CONTENEDOR DE RUTAS - Crece para llenar el espacio disponible */}
       <div className="flex-grow">
@@ -31,10 +30,14 @@ const { token, logout } = useAuth();
           <Route
             path="/login"
             element={
-              token ? (
-                <Navigate to="/explore" replace />
+              auth ? (
+                auth.user.role === "admin" ? (
+                  <Navigate to="/dashboard" replace />
+                ) : (
+                  <Navigate to="/explore" replace />
+                )
               ) : (
-                <Login/>
+                <Login />
               )
             }
           />
@@ -42,7 +45,17 @@ const { token, logout } = useAuth();
           {/* REGISTER */}
           <Route
             path="/register"
-            element={token ? <Navigate to="/explore" replace /> : <Register />}
+            element={
+              auth ? (
+                auth.user.role === "admin" ? (
+                  <Navigate to="/dashboard" replace />
+                ) : (
+                  <Navigate to="/explore" replace />
+                )
+              ) : (
+                <Register />
+              )
+            }
           />
 
           {/* EXPLORE - Requiere autenticación */}
@@ -58,17 +71,30 @@ const { token, logout } = useAuth();
           {/* MATCH - Requiere autenticación, muestra matches del usuario */}
           <Route
             path="/match"
-            element={token ? <Match /> : <Navigate to="/login" replace />}
+            element={auth ? <Match /> : <Navigate to="/login" replace />}
           />
 
           {/* PROFILE - Requiere autenticación, perfil del usuario y mascota */}
           <Route
             path="/profile"
-            element={token ? <Profile /> : <Navigate to="/login" replace />}
+            element={auth ? <Profile /> : <Navigate to="/login" replace />}
           />
 
           {/* RUTA COMODÍN - Captura cualquier otra ruta y muestra página 404 personalizada */}
           <Route path="*" element={<NotFound />} />
+
+          {/* RUTA dashboard- ADMIN */}
+
+          <Route
+            path="/dashboard"
+            element={
+              auth?.user?.role === "admin" ? (
+                <Dashboard />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
         </Routes>
       </div>
     </div>

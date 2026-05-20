@@ -1,33 +1,46 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(
-    localStorage.getItem("pettin_auth_token")
-  );
+  const [auth, setAuth] = useState(() => {
+    const savedAuth = localStorage.getItem("pettin_auth");
 
+    return savedAuth ? JSON.parse(savedAuth) : null;
+  });
+
+  // guardar auth
   useEffect(() => {
-    if (token) {
-      localStorage.setItem("pettin_auth_token", token);
+    if (auth) {
+      localStorage.setItem("pettin_auth", JSON.stringify(auth));
     } else {
-      localStorage.removeItem("pettin_auth_token");
+      localStorage.removeItem("pettin_auth");
     }
-  }, [token]);
+  }, [auth]);
 
-  const login = (newToken) => {
-    setToken(newToken);
+  // login
+  const login = (data) => {
+    setAuth(data);
   };
 
+  // logout
   const logout = () => {
-    setToken(null);
+    setAuth(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  return useContext(AuthContext);
+}

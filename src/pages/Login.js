@@ -15,8 +15,8 @@ import { useAuth } from "../context/AuthContext";
  * Guarda el token en localStorage para persistencia.
  *
  * Credenciales de prueba:
- * - Email: petin@gmail.com
- * - Password: 123
+ * - Email: admin@gmail.com
+ * - Password: admin123
  */
 function Login() {
   const navigate = useNavigate();
@@ -65,10 +65,13 @@ function Login() {
 
       // Pasa el token al componente padre (App.js)
       // App.js se encarga de guardarlo en localStorage
-      authLogin(response.token);
+      authLogin(response);
 
-      // Navega a la página de exploración
-      navigate("/explore");
+      if (response.user.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/explore");
+      }
     } catch (err) {
       // Captura error y lo muestra al usuario
       setError(err.message || "Error al iniciar sesión");

@@ -14,27 +14,64 @@
  */
 export function login(email, password) {
   return new Promise((resolve, reject) => {
-    // Simula latencia de red (1.5 segundos)
+
     setTimeout(() => {
-      // Credenciales correctas
-      if (email === "petin@gmail.com" && password === "123") {
-        // Retorna un token único (en producción vendría del backend)
+
+      // =========================
+      // ADMIN
+      // =========================
+      if (
+        email === "admin@gmail.com" &&
+        password === "admin123"
+      ) {
+
         resolve({
-          token: `pettin-auth-${Date.now()}`, // Token con timestamp único
+          token: `admin-token-${Date.now()}`,
           user: {
-            email: email,
-            name: "Usuario Pettin",
-            loginTime: new Date().toISOString()
-          }
+            email,
+            name: "Administrador",
+            role: "admin",
+          },
         });
-      } else {
-        // Credenciales incorrectas
-        reject(new Error("Correo o contraseña incorrectos"));
+
+        return;
       }
+
+      // =========================
+      // USUARIO REGISTRADO
+      // =========================
+      const savedUser = JSON.parse(
+        localStorage.getItem("pettin_user")
+      );
+
+      if (!savedUser) {
+        reject(new Error("No existe ningún usuario registrado"));
+        return;
+      }
+
+      // validar usuario
+      if (
+        email === savedUser.email &&
+        password === savedUser.password
+      ) {
+
+        resolve({
+          token: `user-token-${Date.now()}`,
+          user: {
+            ...savedUser,
+            role: "user",
+          },
+        });
+
+      } else {
+
+        reject(new Error("Correo o contraseña incorrectos"));
+
+      }
+
     }, 1500);
   });
 }
-
 /**
  * CARGAR MASCOTAS
  * 
