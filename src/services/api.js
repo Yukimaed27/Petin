@@ -139,3 +139,23 @@ export function saveMatch(pet, action) {
   });
 }
 
+/**
+ * CARGAR IMAGENES PUBLICAS
+ *
+ * Consume una API publica sin clave para mostrar imagenes en el dashboard.
+ * Usa Dog CEO API para evitar autenticar.
+ *
+ * @param {number} count - Cantidad de imagenes
+ * @returns {Promise<string[]>} URLs de imagenes
+ */
+export function fetchPublicPets(count = 6) {
+  return fetch(`https://dog.ceo/api/breeds/image/random/${count}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => data.message);
+}
+

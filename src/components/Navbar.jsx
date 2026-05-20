@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { Home, Heart, User, LogOut } from "lucide-react";
+import { Home, Heart, User, LogOut, Mail } from "lucide-react";
 import { ClipboardPlus, ClipboardList } from "lucide-react";
 
 function Navbar({ onLogout }) {
@@ -90,6 +90,18 @@ function Navbar({ onLogout }) {
               <span className="hidden md:inline">Registro</span>
             </>
           )}
+        </NavLink>
+
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "font-bold text-purple-700 transition duration-300 flex items-center gap-2 cursor-pointer"
+              : "text-gray-700 hover:text-purple-700 transition duration-300 flex items-center font-medium gap-2 cursor-pointer"
+          }
+        >
+          <Mail size={22} />
+          <span className="hidden md:inline">Contacto</span>
         </NavLink>
       </div>
 

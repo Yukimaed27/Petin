@@ -2,9 +2,21 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, Users, Shield, Zap } from "lucide-react";
 import Footer from "../components/Footer";
+import PetRegisterForm from "../components/PetRegisterForm";
+import { useAuth } from "../context/AuthContext";
 
 function Home() {
   const navigate = useNavigate();
+  const { auth } = useAuth();
+
+  const handlePetRegisterSuccess = () => {
+    if (auth) {
+      navigate("/profile");
+      return;
+    }
+
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,6 +69,30 @@ function Home() {
           {/* INDICADOR DE SCROLL - Sugiere contenido debajo (icono animado) */}
           <div className="flex justify-center animate-bounce">
             <div className="text-gray-600 text-3xl">↓</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+              Register your pet
+            </h2>
+            <p className="text-lg text-gray-600">
+              Make your pet visible on the platform in minutes
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <PetRegisterForm
+              onSuccess={handlePetRegisterSuccess}
+              successMessage={
+                auth
+                  ? "Pet registered successfully."
+                  : "Pet registered successfully. Please log in to continue."
+              }
+            />
           </div>
         </div>
       </section>
@@ -168,6 +204,21 @@ function Home() {
             className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-14 py-4 rounded-full font-bold text-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
           >
             Comenzar Ahora 🚀
+          </button>
+        </div>
+      </section>
+
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-5xl mx-auto bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-10 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-2">¿Necesitas ayuda?</h2>
+            <p className="text-white/90 text-lg">Nuestro equipo responde rapido a tus dudas.</p>
+          </div>
+          <button
+            onClick={() => navigate("/contact")}
+            className="bg-white text-purple-700 px-8 py-3 rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+          >
+            Contactar ahora
           </button>
         </div>
       </section>

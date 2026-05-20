@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import RegisterPet from "./pages/RegisterPet.js";
+import Contact from "./pages/Contact";
 
 function App() {
   const { auth, logout } = useAuth();
@@ -86,6 +87,9 @@ function App() {
             path="/register-pet"
             element={auth ? <RegisterPet /> : <Navigate to="/login" replace />}
           />
+
+          {/* CONTACTO */}
+          <Route path="/contact" element={<Contact />} />
 
           {/* RUTA COMODÍN - Captura cualquier otra ruta y muestra página 404 personalizada */}
           <Route path="*" element={<NotFound />} />

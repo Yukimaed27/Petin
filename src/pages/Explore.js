@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import Card from "../components/Card";
 import SwipeCard from "../components/Swipecard";
@@ -26,6 +26,10 @@ function Explore() {
   
   // ESTADO DE ERROR - Almacena mensajes de error
   const [error, setError] = useState(null);
+
+  // ESTADO DE BUSQUEDA Y FILTRO
+  const [searchTerm, setSearchTerm] = useState("");
+  const [speciesFilter, setSpeciesFilter] = useState("all");
 
   /**
    * EFECTO DE CARGA - Se ejecuta una sola vez al montar el componente
@@ -90,6 +94,21 @@ function Explore() {
     }
   };
 
+  const filteredPets = useMemo(() => {
+    return pets.filter((pet) => {
+      const matchesSearch = pet.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesSpecies = speciesFilter === "all" || pet.species === speciesFilter;
+      return matchesSearch && matchesSpecies;
+    });
+  }, [pets, searchTerm, speciesFilter]);
+
+  const speciesOptions = useMemo(() => {
+    const options = new Set(pets.map((pet) => pet.species).filter(Boolean));
+    return ["all", ...Array.from(options)];
+  }, [pets]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100 px-6 py-10">
       {/* TITULO */}
@@ -132,8 +151,8 @@ function Explore() {
       {/* SWIPE CARD - Se muestra cuando hay datos y no está cargando */}
       {!loading && (
         <div className="flex justify-center items-center mb-20 min-h-[650px] relative">
-          {pets.length > 0 ? (
-            <SwipeCard pet={pets[0]} onSwipe={handleSwipe} />
+          {filteredPets.length > 0 ? (
+            <SwipeCard pet={filteredPets[0]} onSwipe={handleSwipe} />
           ) : (
             <div className="bg-white p-10 rounded-3xl shadow-xl text-center">
               <h2 className="text-3xl font-bold text-gray-700 mb-3">
@@ -154,8 +173,30 @@ function Explore() {
           Mascotas destacadas
         </h2>
 
+        <div className="max-w-4xl mx-auto mb-8 flex flex-col md:flex-row gap-4 items-center justify-center">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Buscar por nombre"
+            className="w-full md:w-1/2 bg-white px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-purple-500"
+          />
+
+          <select
+            value={speciesFilter}
+            onChange={(event) => setSpeciesFilter(event.target.value)}
+            className="w-full md:w-1/3 bg-white px-4 py-3 rounded-full border border-gray-200 focus:outline-none focus:border-purple-500"
+          >
+            {speciesOptions.map((option) => (
+              <option key={option} value={option}>
+                {option === "all" ? "Todas" : option}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="flex flex-wrap justify-center gap-10">
-          {pets.map((pet) => (
+          {filteredPets.map((pet) => (
             <Card key={pet.id} pet={pet} />
           ))}
         </div>

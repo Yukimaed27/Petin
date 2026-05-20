@@ -73,6 +73,14 @@ function Footer() {
                   Mis Matches
                 </button>
               </li>
+              <li>
+                <button
+                  onClick={() => navigate("/contact")}
+                  className="text-gray-400 hover:text-purple-400 transition duration-300 text-sm"
+                >
+                  Contacto
+                </button>
+              </li>
             </ul>
           </div>
 

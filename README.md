@@ -25,6 +25,25 @@ Un frontend moderno, interactivo y totalmente responsive diseñado para conectar
 
 ---
 
+## Usuarios de prueba
+
+**Admin**
+- Email: admin@gmail.com
+- Password: admin123
+
+**Usuario**
+- Crea un usuario en la pantalla de registro (se guarda en localStorage)
+- Luego inicia sesion con ese correo y password
+
+---
+
+## Despliegue
+
+- Vercel: agrega aqui el link cuando publiques
+- Render: agrega aqui el link cuando publiques
+
+---
+
 ## 📁 Estructura del Proyecto Principal
 
 ```text
