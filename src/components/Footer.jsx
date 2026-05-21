@@ -131,12 +131,18 @@ function Footer() {
             </p>
             {/* Enlaces legales - Privacidad y términos */}
             <div className="flex gap-6 text-gray-400 text-sm">
-              <a href="#" className="hover:text-purple-400 transition duration-300">
+              <button
+                onClick={() => navigate("/privacy")}
+                className="hover:text-purple-400 transition duration-300"
+              >
                 Política de Privacidad
-              </a>
-              <a href="#" className="hover:text-purple-400 transition duration-300">
+              </button>
+              <button
+                onClick={() => navigate("/terms")}
+                className="hover:text-purple-400 transition duration-300"
+              >
                 Términos de Servicio
-              </a>
+              </button>
             </div>
           </div>
         </div>
