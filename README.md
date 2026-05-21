@@ -55,22 +55,39 @@ PETIN/
     │   └── api.js
     ├── App.js / App.css    # Contenedor principal de rutas y estilos base
     └── index.js            # Punto de entrada de React
- Instalación y Ejecución
-El proyecto está configurado para ejecutarse localmente. Nota: El proyecto soporta tanto npm como pnpm.
-Clona el repositorio y abre una terminal en la carpeta raíz.
-Si deseas correr este proyecto de manera local, sigue estos pasos:
+````
 
-1. Clona este repositorio o descarga los archivos.
-2. Abre una terminal en la carpeta raíz del proyecto.
-3. Instala las dependencias necesarias ejecutando:
-   ```bash
-   npm install
-   npm install react-router-dom lucide-react
-Inicia el servidor de desarrollo:
-Abre http://localhost:3000 para ver la aplicación en tu navegador.
+## Instalación y Ejecución
+
+El proyecto está configurado para ejecutarse localmente y soporta tanto `npm` como `pnpm`.
+
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/Yukimaed27/Petin.git 
+```
+### 2. Ingresar a la carpeta del proyecto
+```bash
+cd PETTIN
+```
+### 3. Instalar dependencias
+```bash
+npm install
+```
+### 4. Ejecutar el servidor de desarrollo
+Si usas Vite:
+```bash
+npm run dev
+```
+Si usas Create React App:
+```bash
+npm start
+```
+### 5. Abrir en el navegador
+```txt
+http://localhost:3000
+```
 
 Desarrollado para los amantes de las mascotas,
 
-Instala las dependencias:
 Inicia el servidor de desarrollo:
 Abre http://localhost:3000 en tu navegador para ver la aplicación.
