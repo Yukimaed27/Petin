@@ -1,127 +1,98 @@
 # Pettin - Red Social de Mascotas
 
-Un frontend moderno, interactivo y totalmente responsive diseñado para conectar mascotas y dueños en una plataforma de estilo "matchmaking". Desarrollado con **React**, **Tailwind CSS** y **React Router DOM**, cumpliendo con altos estándares de arquitectura limpia y patrones de diseño modernos.
+Pettin es una aplicación web responsiva diseñada para ayudar a los dueños de mascotas a encontrar el compañero de juegos perfecto para sus amigos peludos. El proyecto simula la interfaz y la experiencia de usuario de una plataforma de "matchmaking" para mascotas, incluyendo navegación por perfiles, gestión de perfiles y matches.
 
----
+## Características Principales
 
-## Características Clave (Features)
+- **Autenticación Simulada Global:** Implementación usando `AuthContext` para el manejo del estado global de la sesión.
+- **Rutas Protegidas:** Uso de `ProtectedRoute` y `react-router-dom` para proteger vistas privadas (Dashboard, Explore, Match, Profile, etc.) evitando el acceso sin autorización.
+- **Consumo de Datos Dinámico:** Carga de mascotas desde `public/data/pets.json` y consumo de API publica para imagenes.
+- **Diseño Moderno y Responsivo:** Maquetación estilizada con **Tailwind CSS** adaptable a mobile, tablet y desktop.
+- **UI/UX Enriquecida:** Uso de iconografia combinando **Lucide React** y **FontAwesome**.
 
-* **Autenticación Persistente:** Sistema de Login y Registro funcional con persistencia de sesión a través de `localStorage` y control de ciclo de vida con el hook `useEffect`.
-* **Rutas Protegidas:** Sistema de enrutamiento seguro que impide el acceso a las vistas de la aplicación (`/explore`, `/match`, `/profile`) si no existe una sesión activa.
-* **Consumo de Datos Dinámico:** Carga e interacción de perfiles de mascotas de forma reactiva simulando peticiones asíncronas (`Fetch API`) desde un origen de datos JSON externo (`pets.json`).
-* **Componentes Reutilizables:** Interfaz modularizada eficientemente en componentes independientes como `Navbar`, `Footer`, `Card` y `SwipeCard`.
-* **Diseño Excepcional y Responsive:** Estética moderna basada en gradientes pastel y morados, adaptada al 100% para dispositivos móviles, tablets y escritorio mediante los breakpoints nativos de `Tailwind CSS`.
-* **Manejo de Errores UX:** Página 404 personalizada integrada para capturar y redireccionar de forma amigable cualquier ruta inválida.
+## Usuarios de Prueba
 
----
+Actualmente, el proyecto simula la conexión al backend mediante el servicio `api.js`. Para evaluar la plataforma y acceder a las rutas privadas, utiliza las siguientes credenciales en la pantalla de **Login**:
 
-## Tecnologías Utilizadas
-
-* **Framework:** React (Vite / Create React App)
-* **Enrutamiento:** React Router DOM
-* **Estilos:** Tailwind CSS & Autoprefixer
-* **Iconos:** Lucide React
-* **Gestión de Estado:** Hooks nativos (`useState`, `useEffect`)
-
----
-
-## Usuarios de prueba
-
-**Admin**
-- Email: admin@gmail.com
-- Password: admin123
+- **Correo Electronico:** `admin@gmail.com`
+- **Contrasena:** `admin123`
 
 **Usuario**
 - Crea un usuario en la pantalla de registro (se guarda en localStorage)
 - Luego inicia sesion con ese correo y password
 
----
+## Tecnologias y Dependencias
+
+Según nuestra configuración en `package.json`, el proyecto utiliza:
+
+- **Core:** React, React DOM
+- **Enrutamiento:** React Router DOM
+- **Estilos:** Tailwind CSS, PostCSS, Autoprefixer
+- **Iconografia:** Lucide React, FontAwesome (SVG Core, Solid, Brands)
+- **Testing:** React Testing Library
 
 ## Despliegue
 
 - Vercel: https://petin-omega.vercel.app/
 - Render: agrega aqui el link cuando publiques
 
----
+## Estructura del Proyecto
 
-## 📁 Estructura del Proyecto Principal
+El proyecto sigue una arquitectura modular y escalable:
 
 ```text
 src/
-├── components/          # Componentes globales reutilizables (Navbar, Footer, Cards)
-├── pages/               # Vistas de la aplicación (Home, Login, Explore, Match, Profile, NotFound)
-├── services/            # Lógica de simulación de API y persistencia de datos
-└── index.css            # Configuración e inyección de directivas de Tailwind CSS
+├── components/         # Componentes reutilizables de UI
+│   ├── Card.jsx
+│   ├── Footer.jsx
+│   ├── Navbar.jsx
+│   ├── PetRegisterForm.jsx
+│   └── Swipecard.jsx
+├── context/            # Manejo de estados globales
+│   └── AuthContext.js  # Contexto de sesion de usuario
+├── pages/              # Vistas principales de la aplicacion
+│   ├── Contact.js, Dashboard.js, Explore.js, Home.js
+│   ├── Login.js, Match.js, NotFound.js, Profile.js
+│   └── Register.js, RegisterPet.js
+├── routes/             # Logica de proteccion de rutas
+│   └── ProtectedRoute.jsx
+├── services/           # Logica simulada de base de datos/API
+│   └── api.js
+├── App.js / App.css    # Contenedor principal de rutas y estilos base
+└── index.js            # Punto de entrada de React
+```
 
+## Instalación y Ejecución
 
+El proyecto está configurado para ejecutarse localmente y soporta tanto `npm` como `pnpm`.
 
-# Getting Started with Create React App
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/Yukimaed27/Petin.git 
+```
+### 2. Ingresar a la carpeta del proyecto
+```bash
+cd PETTIN
+```
+### 3. Instalar dependencias
+```bash
+npm install
+```
+### 4. Ejecutar el servidor de desarrollo
+Si usas Vite:
+```bash
+npm run dev
+```
+Si usas Create React App:
+```bash
+npm start
+```
+### 5. Abrir en el navegador
+```txt
+http://localhost:3000
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Desarrollado para los amantes de las mascotas,
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Inicia el servidor de desarrollo:
+Abre http://localhost:3000 en tu navegador para ver la aplicación.
