@@ -39,7 +39,7 @@ Un frontend moderno, interactivo y totalmente responsive diseñado para conectar
 
 ## Despliegue
 
-- Vercel: agrega aqui el link cuando publiques
+- Vercel: https://petin-omega.vercel.app/
 - Render: agrega aqui el link cuando publiques
 
 ---
