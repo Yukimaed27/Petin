@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Pettin - Tinder para Mascotas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pettin es una aplicación web responsiva diseñada para ayudar a los dueños de mascotas a encontrar el compañero de juegos perfecto para sus amigos peludos.
+El proyecto simula la interfaz y la experiencia de usuario de una plataforma de "Matchmaking" para mascotas, incluyendo navegación por perfiles, mensajería, gestión de perfiles y matches.
 
-## Available Scripts
+## Características Principales
 
-In the project directory, you can run:
+- **Autenticación Simulada Global:** Implementación avanzada usando `AuthContext` para el manejo del estado global de la sesión.
+- **Rutas Protegidas:** Uso de `ProtectedRoute` y `react-router-dom` para proteger vistas privadas (Dashboard, Explore, Match, Profile, etc.) evitando el acceso sin autorización.
+- **Diseño Moderno y Responsivo:** Maquetación estilizada con **Tailwind CSS** (v3.4), adaptable a dispositivos móviles y pantallas grandes.
+- **UI/UX Enriquecida:** Uso de iconografía escalable combinando **Lucide React** y **FontAwesome**.
 
-### `npm start`
+## Usuarios de Prueba (Test Users)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Actualmente, el proyecto simula la conexión al backend mediante el servicio `api.js`. Para evaluar la plataforma y acceder a las rutas privadas, utiliza las siguientes credenciales en la pantalla de **Login**:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Correo Electrónico:** `admin@gmail.com`
+- **Contraseña:** `admin123`
 
-### `npm test`
+*(Nota: Ingresar datos distintos demostrará el manejo de errores en el formulario).*
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tecnologías y Dependencias
 
-### `npm run build`
+Según nuestra configuración en `package.json`, el proyecto utiliza:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Core:** React, React DOM
+- **Enrutamiento:** React Router DOM 
+- **Estilos:** Tailwind CSS , PostCSS, Autoprefixer
+- **Iconografía:** Lucide React, FontAwesome (SVG Core, Solid, Brands)
+- **Testing:** React Testing Library
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Estructura del Proyecto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+El proyecto sigue una arquitectura modular y escalable:
 
-### `npm run eject`
+```text
+PETIN/
+├── public/
+└── src/
+    ├── components/         # Componentes reutilizables de UI
+    │   ├── Card.jsx
+    │   ├── Footer.jsx
+    │   ├── Navbar.jsx
+    │   ├── PetRegisterForm.jsx
+    │   └── Swipecard.jsx
+    ├── context/            # Manejo de estados globales
+    │   └── AuthContext.js  # Contexto de sesión de usuario
+    ├── pages/              # Vistas principales de la aplicación
+    │   ├── Contact.js, Dashboard.js, Explore.js, Home.js
+    │   ├── Login.js, Match.js, NotFound.js, Profile.js
+    │   └── Register.js, RegisterPet.js
+    ├── routes/             # Lógica de protección de rutas
+    │   └── ProtectedRoute.jsx
+    ├── services/           # Lógica simulada de base de datos/API
+    │   └── api.js
+    ├── App.js / App.css    # Contenedor principal de rutas y estilos base
+    └── index.js            # Punto de entrada de React
+ Instalación y Ejecución
+El proyecto está configurado para ejecutarse localmente. Nota: El proyecto soporta tanto npm como pnpm.
+Clona el repositorio y abre una terminal en la carpeta raíz.
+Si deseas correr este proyecto de manera local, sigue estos pasos:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clona este repositorio o descarga los archivos.
+2. Abre una terminal en la carpeta raíz del proyecto.
+3. Instala las dependencias necesarias ejecutando:
+   ```bash
+   npm install
+   npm install react-router-dom lucide-react
+Inicia el servidor de desarrollo:
+Abre http://localhost:3000 para ver la aplicación en tu navegador.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Desarrollado para los amantes de las mascotas,
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Instala las dependencias:
+Inicia el servidor de desarrollo:
+Abre http://localhost:3000 en tu navegador para ver la aplicación.
